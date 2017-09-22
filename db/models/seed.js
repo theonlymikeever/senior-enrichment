@@ -17,44 +17,28 @@ for (var i = 0; i < 20; i++) {
 }
 
 const seed = () => {
-  // let mike, nick, camp, camp2
-
-  // return Promise.all([
-  //   Student.create({ name: 'mike', email: 'hi@hi.com'}),
-  //   Student.create({ name: 'Nick', email: 'hi2@hi2.com'}),
-  //   Campus.create({ name: 'place1'}),
-  //   Campus.create({ name: 'other place'})
-  // ])
-  // .then(([s1, s2, c1, c2]) => {
-  //   mike = s1
-  //   nick = s2
-  //   camp = c1
-  //   camp2 = c2
-  //   return mike.setCampus(camp)
-  // })
-  // .then(() => {
-  //   return { mike, nick, camp, camp2 }
-  // })
-
   const promiseArr = []
 
+//Promise array creation where 0-19 are students, 20-39 campuses
   boxOFakePeople.forEach((person) => {
     let { name, email } = person;
     promiseArr.push(
       Student.create({ name, email })
     )
   })
+
   boxOFakeSchools.forEach((school) => {
     let { name } = school;
     promiseArr.push(Campus.create({ name }))
   })
+
+//load the DB up!
   return Promise.all(promiseArr)
     .then((res) => {
       return res.slice(0, 20).forEach((student) => {
-        console.log(res[39].get())
+        //and set random campuses
         student.setCampus(res[Math.floor(Math.random() * (39 - 20) + 20)])
       })
     })
 }
  module.exports = seed;
-
