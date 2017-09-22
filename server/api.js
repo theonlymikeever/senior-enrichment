@@ -43,7 +43,7 @@ api.put('/students/:id', (req, res, next) => {
 api.delete('/students/:id', (req, res, next) => {
   console.log('deleting student')
   console.log(req.params.id)
-  db.model('student').findById(req.params.id)
+  db.model('student').destroy({where: {id: req.params.id}})
   .then(() => res.sendStatus(200))
   .catch(next)
 });
@@ -86,7 +86,7 @@ api.put('/campuses/:id', (req, res, next) => {
 api.delete('/campuses/:id', (req, res, next) => {
   console.log('deleting campus')
   console.log(req.params.id)
-  db.model('campus').findById(req.params.id)
+  db.model('campus').destroy({where: {id: req.params.id}})
   .then(() => res.sendStatus(200))
   .catch(next)
 });
