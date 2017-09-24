@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux'
 import { inputCampus, createCampus } from '../reducers';
 
@@ -33,7 +33,7 @@ function CampusForm (props){
       <form className="form-group" onSubmit={(evt) => handleSubmit(evt, newCampusEntry) }>
         <label>Add Campus: </label>
         <input onChange={ handleChange } className="form-control" name="name" value={ newCampusEntry } />
-        <button className="btn btn-primary">Add</button>
+        <button className="btn btn-primary">Add Campus</button>
       </form>
     )
 }
@@ -56,4 +56,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(CampusForm)
+export default connect(mapStateToProps, mapDispatchToProps)(CampusForm)

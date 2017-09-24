@@ -5,7 +5,8 @@ const initialState = {
   students: [],
   campuses: [],
   newCampusEntry: '',
-  newStudentEntry: ''
+  newStudentNameEntry: '',
+  newStudentEmailEntry: '',
 }
 
 //ACTION TYPES
@@ -14,7 +15,9 @@ const GOT_CAMPUSES = 'GOT_CAMPUSES';
 const ADD_CAMPUS = 'ADD_CAMPUS';
 const INPUT_CAMPUS = 'INPUT_CAMPUS';
 const ADD_STUDENT = 'ADD_STUDENT';
-const INPUT_STUDENT = 'INPUT_STUDENT';
+const INPUT_STUDENT_NAME = 'INPUT_STUDENT_NAME';
+const INPUT_STUDENT_EMAIL = 'INPUT_STUDENT_EMAIL';
+const DELETE_STUDENT = 'DELETE_STUDENT';
 
 //ACITON CREATORS
 export function getStudents (students){
@@ -35,12 +38,20 @@ export function addCampus (campus){
   return action;
 }
 
-export function inputStudent (newStudentEntry){
-  const action = { type: INPUT_STUDENT, newStudentEntry }
+export function inputStudentName (newStudentNameEntry){
+  const action = { type: INPUT_STUDENT_NAME, newStudentNameEntry }
+  return action;
+}
+export function inputStudentEmail (newStudentEmailEntry){
+  const action = { type: INPUT_STUDENT_EMAIL, newStudentEmailEntry }
   return action;
 }
 export function addStudent (student){
   const action = { type: ADD_STUDENT, student }
+  return action;
+}
+export function deleteStudent (studentId){
+  const action = { type: DELETE_STUDENT, studentId }
   return action;
 }
 
@@ -79,12 +90,22 @@ export function createCampus (campus) {
 }
 
 export function createStudent (student) {
-  const { name, email } = student;
+  const { name, email, campusId } = student;
   return function thunk (dispatch){
-    return axios.post('/api/campuses', { name, email })
+    return axios.post('/api/students', { name, email, campusId })
       .then( res => res.data )
       .then( newStudent => {
         const action = addStudent(newStudent)
+        dispatch(action);
+      })
+  }
+}
+
+export function deleteStudentFromServer (studentId) {
+  return function thunk (dispatch){
+    return axios.delete(`/api/students/${studentId}`)
+      .then( () => {
+        const action = deleteStudent(studentId);
         dispatch(action);
       })
   }
@@ -119,16 +140,29 @@ const rootReducer = function(state = initialState, action) {
         campuses: [...state.campuses, action.campus]
       }
 
-    case INPUT_STUDENT:
+    case INPUT_STUDENT_NAME:
       return {
         ...state,
-        newStudentEntry: action.newStudentEntry
+        newStudentNameEntry: action.newStudentNameEntry
+      }
+    case INPUT_STUDENT_EMAIL:
+      return {
+        ...state,
+        newStudentEmailEntry: action.newStudentEmailEntry
       }
 
     case ADD_STUDENT:
       return {
         ...state,
         students: [...state.students, action.student]
+      }
+
+    case DELETE_STUDENT:
+      return {
+        ...state,
+        students: state.students.filter((student) => {
+          return student.id != action.studentId
+        })
       }
 
     default: return state
