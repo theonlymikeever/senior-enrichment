@@ -1,36 +1,32 @@
-import React, { Component } from 'react';
-import store from '../store';
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-export default class CampusList extends Component {
-  constructor(){
-    super();
-    this.state = store.getState();
-  }
-
-  componentDidMount(){
-    this.unsubscribe = store.subscribe(() => {
-      this.setState(store.getState())
-    })
-  }
-
-  componentWillUnmount(){
-    this.unsubscribe();
-  }
-
-  render(){
-    const { campuses } = this.state;
+function CampusList(props){
+    const { campuses } = props;
     return (
+    <div className="col-xs-12 col-sm-8">
+      <h2>Campuses</h2>
       <div>
-        <h2>Campuses</h2>
-        <ul>
         {
           campuses.map( campus => {
-            return <li><img src={campus.imageUrl} />{ campus.name }</li>
+            return (
+              <div className="col-xs-6" key={ campus.id }>
+                <img className="img-responsive" src={campus.imageUrl} />
+                <Link to={`/campuses/${campus.id}`}>{ campus.name }</Link>
+              </div>
+            )
           })
         }
-        </ul>
       </div>
+    </div>
     )
+}
+
+const mapStateToProps = ({ campuses }) => {
+  return {
+    campuses
   }
 }
 
+export default connect(mapStateToProps)(CampusList);

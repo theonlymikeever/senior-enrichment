@@ -13,8 +13,8 @@ for (var i = 0; i < 20; i++) {
   })
 
   boxOFakeSchools.push({
-    name: faker.company.companyName(),
-    imageUrl: 'http://lorempixel.com/320/240'+'?random='+Math.floor(Math.random() * (39 - 20) + 20)
+    name: faker.address.city(),
+    imageUrl: 'http://lorempixel.com/320/240/city'+'?random='+Math.floor(Math.random() * (39 - 20) + 20)
   })
 }
 

@@ -4,6 +4,8 @@ import store from '../store';
 import { fetchStudents, fetchCampuses } from '../reducers';
 import StudentList from './StudentList';
 import CampusList from './CampusList';
+import CampusForm from './CampusForm';
+import Campus from './Campus';
 
 export default class App extends Component {
   constructor(){
@@ -18,14 +20,23 @@ export default class App extends Component {
   }
 
   render(){
+    const { campuses } = this.state;
+
     return (
       <Router>
        <div className="container">
-        <div className="row">
-          <Route path="/students"  component={ StudentList } />
+       <h1>Mike Kerslake's School of Magic</h1>
+          <div className="col-xs-12">
+            <CampusForm />
+          </div>
+          <div className="col-xs-8">
+            <Route path="/students"  component={ StudentList } />
+          </div>
+          <div className="col-xs-8">
+            <Route path="/campuses/:id/"  component={ Campus } />
+          </div>
           <Route exact path="/"  component={ CampusList } />
         </div>
-       </div>
       </Router>
     )
   }
