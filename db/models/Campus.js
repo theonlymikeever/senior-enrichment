@@ -5,11 +5,11 @@ const Campus = conn.define('campus', {
     type: conn.Sequelize.STRING,
   },
   imageUrl: {
-    type: conn.Sequelize.VIRTUAL,
-    get: function () {
-      return 'http://fillmurray.com/200/300';
+    type: conn.Sequelize.STRING,
+    // get: function () {
+      // return 'http://fillmurray.com/200/300';
       // return `/api/campuses/${this.id}/image`;
-    }
+    // }
   }
 })
 

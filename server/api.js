@@ -7,7 +7,7 @@ const db = require('../db')
 	// Ideally you would have something to handle this, so if you have time try that out!
 api.get('/hello', (req, res) => res.send({hello: 'world'}))
 
-//Student API
+//Student API -----------------------------
 api.get('/students', (req, res, next) => {
   db.model('student').findAll()
   .then((students) => res.send(students))
@@ -49,10 +49,10 @@ api.delete('/students/:id', (req, res, next) => {
 });
 
 
-//Campus API
+//Campus API ------------------------------
 api.get('/campuses', (req, res, next) => {
   db.model('campus').findAll()
-  .then((students) => res.send(students))
+  .then((campuses) => res.send(campuses))
   .catch(next)
 });
 

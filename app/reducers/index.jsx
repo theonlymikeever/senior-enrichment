@@ -1,7 +1,8 @@
-import { combineReducers } from 'redux'
+import { combineReducers, applyMiddleware, createStore } from 'redux'
 import axios from 'axios'
 import thunkMiddleware from 'redux-thunk';
 import createLogger from 'redux-logger';
+import { composeWithDevTools } from 'redux-devtools-extension';
 
 //INTIIAL STATE
 const initialState = {
@@ -23,21 +24,51 @@ export function getCampuses (campuses){
   return action;
 }
 
+//THUNK CREATORS
+export function fetchStudents () {
+  return function thunk (dispatch) {
+    return axios.get('/api/students')
+    .then( res => res.data )
+    .then( students => {
+      const action = getStudents(students);
+      dispatch(action);
+    })
+  }
+}
+
+export function fetchCampuses () {
+  return function thunk (dispatch) {
+    return axios.get('/api/campuses')
+    .then( res => res.data )
+    .then( campuses => {
+      const action = getCampuses(campuses);
+      dispatch(action);
+    })
+  }
+}
+
 //REDUCER
 const rootReducer = function(state = initialState, action) {
-  switch(action.type) {
+  switch (action.type) {
     case GOT_STUDENTS:
-      return {
-        ...state,
-        students: action.students
-    }
+      return Object.assign({}, state, {students: action.students})
+    //   return {
+    //     ...state,
+    //     students: action.students
+    // }
     case GOT_CAMPUSES:
-      return {
-        ...state,
-        campuses: action.campuses
-    }
+      return Object.assign({}, state, {campuses: action.campuses})
+    //   return {
+    //     ...state,
+    //     campuses: action.campuses
+    // }
     default: return state
   }
 };
 
-export default rootReducer
+// console.log(typeof rootReducer)
+// const store = createStore(rootReducer);
+
+// const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunkMiddleware, createLogger())));
+
+export default rootReducer;

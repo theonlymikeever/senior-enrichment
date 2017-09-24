@@ -1,6 +1,7 @@
 const faker = require('faker');
 const Student = require('./Student');
 const Campus = require('./Campus');
+console.log(faker.image.imageUrl())
 
 //create a bunch of filler data
 const boxOFakePeople = [];
@@ -13,6 +14,7 @@ for (var i = 0; i < 20; i++) {
 
   boxOFakeSchools.push({
     name: faker.company.companyName(),
+    imageUrl: 'http://lorempixel.com/320/240'+'?random='+Math.floor(Math.random() * (39 - 20) + 20)
   })
 }
 
@@ -28,8 +30,8 @@ const seed = () => {
   })
 
   boxOFakeSchools.forEach((school) => {
-    let { name } = school;
-    promiseArr.push(Campus.create({ name }))
+    let { name, imageUrl } = school;
+    promiseArr.push(Campus.create({ name, imageUrl}))
   })
 
 //load the DB up!
