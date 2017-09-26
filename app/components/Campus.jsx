@@ -14,14 +14,19 @@ function Campus(props) {
   return (
     <div>
       <div className="col-sm-12">
-        <h3> { campus && campus.name } </h3>
+        <h3 className="float-left"> { campus && campus.name } </h3>
         <button className={ `mb-2 btn btn-large float-right ${showForm ? 'btn-primary' : 'btn-dark'}`} onClick={ addStudent }>
           {
             showForm ? 'x' : '+'
           }
         </button>
+        <div className="clearfix" />
         {
-          showForm ? <StudentForm campusId={ campusId } /> : null
+          showForm ?
+          <div className="row">
+            <StudentForm campusId={ campusId } />
+          </div>
+          : null
         }
       </div>
       <div className="row">
@@ -35,7 +40,7 @@ function Campus(props) {
                     <h6 className="card-subtitle mt-2 text-muted">{ student.email }</h6>
                     <p className="card-text">{ student.note }</p>
                     <form onSubmit={ handleDelete }>
-                      <button value={student.id} name="delete" className="mt-2 btn btn-danger btn-small float-right">Delete Student</button>
+                      <button value={student.id} name="delete" className="mt-2 btn btn-danger btn-small float-left">Delete Student</button>
                     </form>
                   </div>
                 </div>

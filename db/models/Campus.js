@@ -6,7 +6,7 @@ const Campus = conn.define('campus', {
   },
   imageUrl: {
     type: conn.Sequelize.STRING,
-    defaultValue: 'http://fillmurray.com/200/300'
+    defaultValue: 'http://fillmurray.com/320/240'
   },
   note: {
     type: conn.Sequelize.TEXT

@@ -2,7 +2,6 @@ const faker = require('faker');
 const Student = require('./Student');
 const Campus = require('./Campus');
 
-console.log(typeof faker.company.catchPhrase() )
 //create a bunch of filler data
 const boxOFakePeople = [];
 const boxOFakeSchools = [];
@@ -15,7 +14,7 @@ for (var i = 0; i < 40; i++) {
   if (i % 4 === 0) {
     boxOFakeSchools.push({
     name: faker.address.city(),
-    imageUrl: 'http://lorempixel.com/320/240/city'+'?random='+Math.floor(Math.random() * (1 - 11) + 11),
+    imageUrl: 'http://lorempixel.com/320/240/city'+'?random='+Math.floor(Math.random() * (100 - 1) + 1),
     note: faker.company.catchPhrase()
     })
   }

@@ -17,10 +17,12 @@ function CampusList(props){
                 <div className="mb-3 col-sm-6" key={ campus.id }>
                   <div className="card">
                    <img className="card-img-top img-responsive" src={campus.imageUrl} alt="Card image cap" />
+                     <div className="mb-5 card-img-overlay">
+                      <h4 className="card-title text-light">{ campus.name }</h4>
+                    </div>
                     <div className="card-body">
-                      <h4 className="card-title">{ campus.bame }</h4>
                       <p className="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                      <Link className="btn btn-primary" to={`/campuses/${campus.id}`}>{ campus.name }</Link>
+                      <Link className="btn btn-primary" to={`/campuses/${campus.id}`}>View Campus</Link>
                     </div>
                   </div>
                 </div>

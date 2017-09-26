@@ -6,11 +6,17 @@ function StudentForm (props){
     const { newStudentNameEntry, newStudentEmailEntry, campusId } = props;
     const { handleSubmit, handleNameChange, handleEmailChange } = props;
     return (
-      <form className="form-group" onSubmit={(evt) => handleSubmit(evt, newStudentNameEntry, newStudentEmailEntry, campusId) }>
-        <input onChange={ handleNameChange } className="form-control" name="name" placeholder={ newStudentNameEntry === '' ? 'full name' : null } value={ newStudentNameEntry } type="text" />
-        <input onChange={ handleEmailChange } className="mt-2 form-control" name="email" placeholder={ newStudentEmailEntry === '' ? 'email' : null } value={ newStudentEmailEntry } type="email" />
-        <button className="mt-2 btn btn-primary">Add Student</button>
-      </form>
+      <div className="card border-primary px-0 mb-3 col-sm-12">
+        <div className="card-header">Add Student</div>
+        <div className="card-body text-primary">
+          <form className="form-group" onSubmit={(evt) => handleSubmit(evt, newStudentNameEntry, newStudentEmailEntry, campusId) }>
+          <input onChange={ handleNameChange } className="form-control" name="name" placeholder={ newStudentNameEntry === '' ? 'full name' : null } value={ newStudentNameEntry } type="text" />
+          <input onChange={ handleEmailChange } className="mt-2 form-control" name="email" placeholder={ newStudentEmailEntry === '' ? 'email' : null } value={ newStudentEmailEntry } type="email" />
+          <button className="mt-2 btn btn-primary">Save</button>
+          </form>
+        </div>
+      </div>
+
     )
 }
 

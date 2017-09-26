@@ -1,4 +1,5 @@
 const conn = require('../index');
+const faker = require('faker');
 
 const Student = conn.define('student', {
   name: {
@@ -15,7 +16,8 @@ const Student = conn.define('student', {
     }
   },
   note: {
-    type: conn.Sequelize.TEXT
+    type: conn.Sequelize.TEXT,
+    defaultValue: faker.company.catchPhrase()
   }
 })
 
