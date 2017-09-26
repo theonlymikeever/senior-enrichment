@@ -2,40 +2,57 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import StudentForm from './StudentForm';
-import { deleteStudentFromServer } from '../reducers';
+import { deleteStudentFromServer, triggerStudentForm } from '../reducers';
 
 function Campus(props) {
   const campusId = Number(props.match.params.id)
-  const { campuses, students, handleDelete } = props;
+  const { campuses, students, handleDelete, showForm, addStudent } = props;
+
   const campus = campuses.filter(c => c.id === campusId)[0];
   const enrolledStudents = students.filter(s => s.campusId === campusId)
 
   return (
-    <div><h3> { campus && campus.name } </h3>
-      <ul>
+    <div>
+      <div className="col-sm-12">
+        <h3> { campus && campus.name } </h3>
+        <button className={ `mb-2 btn btn-large float-right ${showForm ? 'btn-primary' : 'btn-dark'}`} onClick={ addStudent }>
+          {
+            showForm ? 'x' : '+'
+          }
+        </button>
+        {
+          showForm ? <StudentForm campusId={ campusId } /> : null
+        }
+      </div>
+      <div className="row">
         {
           enrolledStudents && enrolledStudents.map( student => {
-            return <div className="well" key={student.id}>
-                <div className="col-xs-6"> {student.name}</div>
-                <div className="col-xs-6">
-                  <form onSubmit={ handleDelete }>
-                    <button value={student.id} name="delete" className="btn btn-danger btn-small pull-right">X</button>
-                  </form>
+            return (
+              <div className="mb-3 col-sm-4" key={ student.id }>
+                <div className="card">
+                  <div className="card-body">
+                    <h4 className="card-title">{ student.name }</h4>
+                    <h6 className="card-subtitle mt-2 text-muted">{ student.email }</h6>
+                    <p className="card-text">{ student.note }</p>
+                    <form onSubmit={ handleDelete }>
+                      <button value={student.id} name="delete" className="mt-2 btn btn-danger btn-small float-right">Delete Student</button>
+                    </form>
+                  </div>
                 </div>
-                <div className="clearfix"></div>
-            </div>
+                </div>
+              )
           })
         }
-      </ul>
-      <StudentForm campus={campus} />
+        </div>
     </div>
   )
 }
 
-const mapStateToProps = ({ campuses, students }) => {
+const mapStateToProps = ({ campuses, students, showForm }) => {
   return {
     campuses,
-    students
+    students,
+    showForm
   }
 }
 
@@ -44,6 +61,9 @@ const mapDispatchToProp = (dispatch) => {
     handleDelete: function(evt){
       evt.preventDefault();
       dispatch(deleteStudentFromServer(evt.target.delete.value));
+    },
+    addStudent: function(){
+      dispatch(triggerStudentForm())
     }
   }
 }

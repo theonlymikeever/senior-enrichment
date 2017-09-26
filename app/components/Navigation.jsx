@@ -7,7 +7,7 @@ return (
       <nav className="navbar navbar-expand-md navbar-dark bg-dark mb-4">
       <a className="navbar-brand" href="#">MK School of Magic</a>
       <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-        <span className="navbar-toggler-icon"></span>
+        <span className="navbar-toggler-icon" />
       </button>
       <div className="collapse navbar-collapse" id="navbarCollapse">
         <div className="navbar-nav mr-auto">
@@ -26,18 +26,7 @@ return (
         </div>
       </div>
     </nav>
-)
-  // return (
-  //   <nav classNameName="nnavbar navbar-expand-md navbar-dark bg-dark mb-4">
-  //     <div classNameName="navbar-brand">MSfM</div>
-  //     <div classNameName="collapse navbar-collapse" id="navbarNavAltMarkup">
-  //       <div classNameName="navbar-nav">
-  //         <NavLink classNameName="nav-item nav-link" to="/" activeclassNameName="active">Home <span classNameName="sr-only">(current)</span></NavLink>
-  //         <NavLink classNameName="nav-item nav-link" to="/students">Students</NavLink>
-  //       </div>
-  //     </div>
-  //   </nav>
-  // )
+  )
 }
 
 export default Navigation;

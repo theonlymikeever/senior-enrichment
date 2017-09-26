@@ -13,6 +13,9 @@ const Student = conn.define('student', {
       isEmail: true,
       notEmpty: true
     }
+  },
+  note: {
+    type: conn.Sequelize.TEXT
   }
 })
 

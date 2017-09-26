@@ -7,10 +7,9 @@ const Campus = conn.define('campus', {
   imageUrl: {
     type: conn.Sequelize.STRING,
     defaultValue: 'http://fillmurray.com/200/300'
-    // get: function () {
-      // return 'http://fillmurray.com/200/300';
-      // return `/api/campuses/${this.id}/image`;
-    // }
+  },
+  note: {
+    type: conn.Sequelize.TEXT
   }
 })
 

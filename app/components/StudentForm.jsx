@@ -1,17 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import { inputStudentName, inputStudentEmail, createStudent } from '../reducers';
+import { inputStudentName, inputStudentEmail, createStudent, triggerStudentForm } from '../reducers';
 
 function StudentForm (props){
-    const { newStudentNameEntry, newStudentEmailEntry, campus } = props;
+    const { newStudentNameEntry, newStudentEmailEntry, campusId } = props;
     const { handleSubmit, handleNameChange, handleEmailChange } = props;
     return (
-      <form className="form-group" onSubmit={(evt) => handleSubmit(evt, newStudentNameEntry, newStudentEmailEntry, campus.id) }>
-        <label>Name: </label>
-        <input onChange={ handleNameChange } className="form-control" name="name" value={ newStudentNameEntry } type="text" />
-        <label>Email: </label>
-        <input onChange={ handleEmailChange } className="form-control" name="email" value={ newStudentEmailEntry } type="email" />
-        <button className="btn btn-primary">Add Student</button>
+      <form className="form-group" onSubmit={(evt) => handleSubmit(evt, newStudentNameEntry, newStudentEmailEntry, campusId) }>
+        <input onChange={ handleNameChange } className="form-control" name="name" placeholder={ newStudentNameEntry === '' ? 'full name' : null } value={ newStudentNameEntry } type="text" />
+        <input onChange={ handleEmailChange } className="mt-2 form-control" name="email" placeholder={ newStudentEmailEntry === '' ? 'email' : null } value={ newStudentEmailEntry } type="email" />
+        <button className="mt-2 btn btn-primary">Add Student</button>
       </form>
     )
 }
@@ -40,6 +38,7 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(createStudent(newStudent));
       dispatch(inputStudentName(''));
       dispatch(inputStudentEmail(''));
+      dispatch(triggerStudentForm())
     }
   }
 }

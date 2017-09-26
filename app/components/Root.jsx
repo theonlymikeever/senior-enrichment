@@ -26,12 +26,6 @@ export default class App extends Component {
       <div>
         <Navigation />
        <div className="container">
-        <div className="col-xs-12">
-          <CampusForm />
-        </div>
-        <div className="col-xs-8">
-          <Route path="/students"  component={ StudentList } />
-        </div>
         <div className="col-xs-8">
           <Route path="/campuses/:id/"  component={ Campus } />
         </div>

@@ -7,6 +7,7 @@ const initialState = {
   newCampusEntry: '',
   newStudentNameEntry: '',
   newStudentEmailEntry: '',
+  showForm: false
 }
 
 //ACTION TYPES
@@ -18,6 +19,7 @@ const ADD_STUDENT = 'ADD_STUDENT';
 const INPUT_STUDENT_NAME = 'INPUT_STUDENT_NAME';
 const INPUT_STUDENT_EMAIL = 'INPUT_STUDENT_EMAIL';
 const DELETE_STUDENT = 'DELETE_STUDENT';
+const TRIGGER_FORM = 'TRIGGER_FORM';
 
 //ACITON CREATORS
 export function getStudents (students){
@@ -54,6 +56,11 @@ export function deleteStudent (studentId){
   const action = { type: DELETE_STUDENT, studentId }
   return action;
 }
+export function triggerStudentForm() {
+  const action = { type: TRIGGER_FORM }
+  return action;
+}
+
 
 //THUNK CREATORS
 export function fetchStudents () {
@@ -80,7 +87,7 @@ export function fetchCampuses () {
 
 export function createCampus (campus) {
   return function thunk (dispatch){
-    return axios.post('/api/campuses', {name:campus})
+    return axios.post('/api/campuses', { name:campus })
       .then( res => res.data )
       .then( newCampus => {
         const action = addCampus(newCampus)
@@ -163,6 +170,12 @@ const rootReducer = function(state = initialState, action) {
         students: state.students.filter((student) => {
           return student.id != action.studentId
         })
+      }
+
+    case TRIGGER_FORM:
+      return {
+        ...state,
+        showForm: !state.showForm
       }
 
     default: return state
