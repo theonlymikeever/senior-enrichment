@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom'
 
-function Navigation(props){
+function Navigation(){
 
 return (
       <nav className="navbar navbar-expand-md navbar-dark bg-dark mb-4">
@@ -12,10 +12,10 @@ return (
       <div className="collapse navbar-collapse" id="navbarCollapse">
         <div className="navbar-nav mr-auto">
           <div className="nav-item">
-            <NavLink activeClassName="active" className="nav-link" to="#">Home</NavLink>
+            <NavLink activeClassName="active" className="nav-link" exact to="/">Home</NavLink>
             </div>
           <div className="nav-item">
-            <NavLink className="nav-link" to="#">Students</NavLink>
+            <NavLink className="nav-link" activeClassName="active" to="/students">Students</NavLink>
           </div>
           <div className="nav-item">
             <a className="nav-link disabled">About</a>

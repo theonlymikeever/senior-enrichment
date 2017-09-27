@@ -3,6 +3,8 @@ const Student = require('./Student');
 const Campus = require('./Campus');
 
 //create a bunch of filler data
+//plan to rewrite this as new Array(40).each(**create)
+//and simplify
 const boxOFakePeople = [];
 const boxOFakeSchools = [];
 for (var i = 0; i < 40; i++) {

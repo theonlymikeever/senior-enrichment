@@ -4,7 +4,6 @@ import store from '../store';
 import { fetchStudents, fetchCampuses } from '../reducers';
 import StudentList from './StudentList';
 import CampusList from './CampusList';
-import CampusForm from './CampusForm';
 import Campus from './Campus';
 import Navigation from './Navigation';
 
@@ -26,9 +25,8 @@ export default class App extends Component {
       <div>
         <Navigation />
        <div className="container">
-        <div className="col-xs-8">
+          <Route path="/students"  component={ StudentList } />
           <Route path="/campuses/:id/"  component={ Campus } />
-        </div>
         <Route exact path="/"  component={ CampusList } />
        </div>
       </div>

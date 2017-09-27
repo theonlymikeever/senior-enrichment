@@ -20,6 +20,7 @@ const INPUT_STUDENT_NAME = 'INPUT_STUDENT_NAME';
 const INPUT_STUDENT_EMAIL = 'INPUT_STUDENT_EMAIL';
 const DELETE_STUDENT = 'DELETE_STUDENT';
 const TRIGGER_FORM = 'TRIGGER_FORM';
+const DELETE_CAMPUS = 'DELETE_CAMPUS';
 
 //ACITON CREATORS
 export function getStudents (students){
@@ -58,6 +59,10 @@ export function deleteStudent (studentId){
 }
 export function triggerStudentForm() {
   const action = { type: TRIGGER_FORM }
+  return action;
+}
+export function deleteCampusFromServer() {
+  const action = { type: DELETE_CAMPUS }
   return action;
 }
 
@@ -118,6 +123,16 @@ export function deleteStudentFromServer (studentId) {
   }
 }
 
+export function deleteCampusFromServer (campusId) {
+  // return function thunk (dispatch){
+  //   return axios.delete(`/api/students/${studentId}`)
+  //     .then( () => {
+  //       const action = deleteStudent(studentId);
+  //       dispatch(action);
+  //     })
+  // }
+}
+
 //REDUCER
 const rootReducer = function(state = initialState, action) {
   switch (action.type) {
@@ -169,6 +184,14 @@ const rootReducer = function(state = initialState, action) {
         ...state,
         students: state.students.filter((student) => {
           return student.id != action.studentId
+        })
+      }
+
+    case DELETE_CAMPUS:
+      return {
+        ...state,
+        campuses: state.campuses.filter((campus) => {
+          return campus.id != action.campusId
         })
       }
 
