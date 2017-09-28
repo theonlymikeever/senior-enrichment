@@ -38,8 +38,8 @@ if (module === require.main) {
 
   const db = require('../db')
   const seed = require('../db/models/seed')
-  db.sync()
-  .then(seed)
+  db.sync({ force: true }) //added for dev/randomizor
+  .then(seed) //fill the db up!
   .then(() => {
     console.log('db synced')
     app.listen(PORT, () => console.log(`server listening on port ${PORT}`))

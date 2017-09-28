@@ -6,9 +6,11 @@ class EditStudentForm extends Component {
   constructor(){
     super();
     this.state = {
+      campuses: [],
       student: {},
       name: '',
-      email: ''
+      email: '',
+      campusId: null
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -18,7 +20,7 @@ class EditStudentForm extends Component {
     const target = evt.target;
     const value = target.value;
     const name = target.name;
-
+    console.log(name, value)
     this.setState({
       [name]: value
     });
@@ -26,8 +28,8 @@ class EditStudentForm extends Component {
 
   handleSubmit(evt){
     evt.preventDefault()
-    const { student, name, email } = this.state;
-    Object.assign(student, { name, email })
+    const { student, name, email, campusId } = this.state;
+    Object.assign(student, { name, email, campusId })
     this.props.updateStudent(student)
   }
 
@@ -36,7 +38,8 @@ class EditStudentForm extends Component {
       this.setState({
         student: this.props.student,
         name: this.props.student.name,
-        email: this.props.student.email })
+        email: this.props.student.email,
+        campusId: this.props.student.campusId })
       }
   }
 
@@ -45,15 +48,17 @@ class EditStudentForm extends Component {
       this.setState({
         student: nextProps.student,
         name: nextProps.student.name,
-        email: nextProps.student.email })
+        email: nextProps.student.email,
+        campusId: nextProps.student.campusId })
     }
   }
 
   render(){
-    const { name, email } = this.state;
-    const { student } = this.props;
+    const { name, email, campusId } = this.state;
+    const { student, campuses } = this.props;
     const { handleSubmit, handleChange } = this;
-      return (
+
+    return (
         <div className="card border-primary mb-3">
           <div className="card-header">
             <strong>Edit student: </strong> { student && student.name }
@@ -61,8 +66,18 @@ class EditStudentForm extends Component {
           <div className="card-body">
             <form className="form-group" onSubmit={ handleSubmit }>
               <input onChange={ handleChange } className="mb-2 form-control" name="name" value={ name } />
-              <input onChange={ handleChange } className="form-control" name="email" value={ email } />
-              <button className="mt-2 btn btn-primary">Save Student</button>
+              <input onChange={ handleChange } className="mb-2 form-control" name="email" value={ email } />
+              <select className="mb-2 form-control" onChange={ handleChange }  name="campusId" value={
+                  campusId ?
+                  campusId
+                  : '' }>
+                  {
+                    campuses.map(campus => {
+                      return <option key={ campus.id } value={ campus.id }>{ campus.name }</option>
+                    })
+                  }
+              </select>
+              <button className="btn btn-primary">Save Student</button>
             </form>
           </div>
         </div>
@@ -75,10 +90,12 @@ const mapStateToProps = function (state, ownProps) {
   const studentId = Number(ownProps.match.params.id);
   const student = state.students.filter(s => {
     return s.id === studentId
-  })[0]
+  })[0];
+  const campuses = state.campuses;
 
   return {
     student,
+    campuses
   };
 };
 
