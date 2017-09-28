@@ -40,7 +40,7 @@ function Campus(props) {
                     <h6 className="card-subtitle mt-2 text-muted">{ student.email }</h6>
                     <p className="card-text">{ student.note }</p>
                     <form onSubmit={ handleDelete }>
-                      <button value={student.id} name="delete" className="mt-2 btn btn-danger btn-small float-left">Delete Student</button>
+                      <button value={student.id} name="delete" className="mt-2 btn btn-danger btn-small float-left" >Delete Student</button>
                     </form>
                   </div>
                 </div>

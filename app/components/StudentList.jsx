@@ -3,7 +3,11 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 function StudentList(props) {
-    const { students } = props;
+    const { students, campuses } = props;
+    students.forEach(student => {
+      student.campus = campuses.find(campus => campus.id === student.campusId)
+    })
+
     return (
       <div className="col-sm-12">
         <h2>Students</h2>
@@ -28,7 +32,16 @@ function StudentList(props) {
                           <th scope="row">{ student.id }</th>
                           <td>{ student.name }</td>
                           <td>{ student.email }</td>
-                          <td><Link to={`/campuses/${ student.campus.id }`}>{ student.campus.name }</Link></td>
+                          <td>
+                          {
+                            student.campus ?
+                            <Link to={`/campuses/${ student.campusId }`}>
+                              {
+                                student.campus.name
+                              }
+                            </Link> : 'n/a'
+                            }
+                          </td>
                         </tr>
                       )
                     })
@@ -43,26 +56,11 @@ function StudentList(props) {
     )
 }
 
-const mapStateToProps = ({ students }) => {
+const mapStateToProps = ({ students, campuses }) => {
   return {
-    students
+    students,
+    campuses
   }
 }
 
 export default connect(mapStateToProps)(StudentList);
-
-
-/*
-
-
-          {
-            students.map( student => {
-              return (
-                <div className="mb-3 col-sm-">
-
-                </div>
-              )
-            })
-          }
-
-          */

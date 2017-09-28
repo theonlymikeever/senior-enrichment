@@ -9,7 +9,7 @@ api.get('/hello', (req, res) => res.send({hello: 'world'}))
 
 //Student API -----------------------------
 api.get('/students', (req, res, next) => {
-  db.model('student').findAll({ include: [ db.model('campus') ] })
+  db.model('student').findAll()
   .then((students) => res.send(students))
   .catch(next)
 });

@@ -5,6 +5,7 @@ import { fetchStudents, fetchCampuses } from '../reducers';
 import StudentList from './StudentList';
 import CampusList from './CampusList';
 import Campus from './Campus';
+import EditCampusForm from './EditCampusForm';
 import Navigation from './Navigation';
 
 export default class App extends Component {
@@ -27,6 +28,7 @@ export default class App extends Component {
        <div className="container">
           <Route path="/students"  component={ StudentList } />
           <Route path="/campuses/:id/"  component={ Campus } />
+          <Route path="/campuses/:id/edit"  component={ EditCampusForm } />
         <Route exact path="/"  component={ CampusList } />
        </div>
       </div>

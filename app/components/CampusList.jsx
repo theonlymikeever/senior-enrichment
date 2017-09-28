@@ -5,7 +5,7 @@ import CampusForm from './CampusForm';
 import { deleteCampusFromServer } from '../reducers'
 
 function CampusList(props){
-    const { campuses, deleteCampus } = props;
+    const { campuses, handleDelete } = props;
     return (
     <div className="col-sm-12">
       <h2>Campuses</h2>
@@ -24,7 +24,9 @@ function CampusList(props){
                     <div className="card-body">
                       <p className="card-text">With supporting text below as a natural lead-in to additional content.</p>
                       <Link className="btn btn-primary" to={`/campuses/${campus.id}`}>View Campus</Link>
-                      <button className="float-right btn btn-danger" onClick={ deleteCampus }>Delete</button>
+                      <form onSubmit={ handleDelete } className="float-right">
+                       <button name="delete" value={ campus.id } className="btn btn-danger">Delete</button>
+                      </form>
                     </div>
                   </div>
                 </div>

@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-//INTIIAL STATE
+//INTIIAL STATE------------------------------------------------------
 const initialState = {
   students: [],
   campuses: [],
@@ -10,7 +10,8 @@ const initialState = {
   showForm: false
 }
 
-//ACTION TYPES
+
+//ACTION TYPES------------------------------------------------------
 const GOT_STUDENTS = 'GOT_STUDENTS';
 const GOT_CAMPUSES = 'GOT_CAMPUSES';
 const ADD_CAMPUS = 'ADD_CAMPUS';
@@ -21,8 +22,10 @@ const INPUT_STUDENT_EMAIL = 'INPUT_STUDENT_EMAIL';
 const DELETE_STUDENT = 'DELETE_STUDENT';
 const TRIGGER_FORM = 'TRIGGER_FORM';
 const DELETE_CAMPUS = 'DELETE_CAMPUS';
+const UPDATE_CAMPUS = 'UPDATE_CAMPUS';
 
-//ACITON CREATORS
+
+//ACITON CREATORS------------------------------------------------------
 export function getStudents (students){
   const action = { type: GOT_STUDENTS, students }
   return action;
@@ -45,29 +48,39 @@ export function inputStudentName (newStudentNameEntry){
   const action = { type: INPUT_STUDENT_NAME, newStudentNameEntry }
   return action;
 }
+
 export function inputStudentEmail (newStudentEmailEntry){
   const action = { type: INPUT_STUDENT_EMAIL, newStudentEmailEntry }
   return action;
 }
+
 export function addStudent (student){
   const action = { type: ADD_STUDENT, student }
   return action;
 }
+
 export function deleteStudent (studentId){
   const action = { type: DELETE_STUDENT, studentId }
   return action;
 }
+
 export function triggerStudentForm() {
   const action = { type: TRIGGER_FORM }
   return action;
 }
-export function deleteCampusFromServer() {
-  const action = { type: DELETE_CAMPUS }
+
+export function deleteCampus(campusId) {
+  const action = { type: DELETE_CAMPUS, campusId }
+  return action;
+}
+
+export function updateCampus(campus) {
+  const action = { type: UPDATE_CAMPUS, campus }
   return action;
 }
 
 
-//THUNK CREATORS
+//THUNK CREATORS------------------------------------------------------
 export function fetchStudents () {
   return function thunk (dispatch) {
     return axios.get('/api/students')
@@ -124,27 +137,37 @@ export function deleteStudentFromServer (studentId) {
 }
 
 export function deleteCampusFromServer (campusId) {
-  // return function thunk (dispatch){
-  //   return axios.delete(`/api/students/${studentId}`)
-  //     .then( () => {
-  //       const action = deleteStudent(studentId);
-  //       dispatch(action);
-  //     })
-  // }
+  return function thunk (dispatch){
+    return axios.delete(`/api/campuses/${campusId}`)
+      .then( () => {
+        const action = deleteCampus(campusId);
+        dispatch(action);
+      })
+  }
 }
 
-//REDUCER
+export function updateCampusFromServer (campus, history) {
+  console.log('updating with: ', update);
+  return function thunk (dispatch){
+    return axios.put(`/api/campuses/${campus}`)
+      .then( () => {
+        const action = updateCampus(campus);
+        dispatch(action);
+        history.push(`/campuses/${campus.id}`)
+      })
+  }
+}
+
+//REDUCERS------------------------------------------------------
 const rootReducer = function(state = initialState, action) {
   switch (action.type) {
     case GOT_STUDENTS:
-      // return Object.assign({}, state, {students: action.students})
       return {
         ...state,
         students: action.students
     }
 
     case GOT_CAMPUSES:
-      // return Object.assign({}, state, {campuses: action.campuses})
       return {
         ...state,
         campuses: action.campuses
@@ -192,6 +215,16 @@ const rootReducer = function(state = initialState, action) {
         ...state,
         campuses: state.campuses.filter((campus) => {
           return campus.id != action.campusId
+        })
+      }
+
+    case UPDATE_CAMPUS:
+      return {
+        ...state,
+        campuses: state.campuses.map((campus) => {
+          if (campus.id === action.campus.id){
+            return Object.assign({}, campus, action.campus)
+          } return campus
         })
       }
 
