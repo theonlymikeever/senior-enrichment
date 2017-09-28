@@ -6,7 +6,7 @@ const Campus = conn.define('campus', {
   },
   imageUrl: {
     type: conn.Sequelize.STRING,
-    defaultValue: 'http://fillmurray.com/320/240'
+    defaultValue: 'http://lorempixel.com/320/240/city?random=' + Math.floor(Math.random() * (100 - 1) + 1)
   },
   note: {
     type: conn.Sequelize.TEXT

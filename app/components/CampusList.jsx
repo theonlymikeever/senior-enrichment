@@ -27,6 +27,7 @@ function CampusList(props){
                       <form onSubmit={ handleDelete } className="float-right">
                        <button name="delete" value={ campus.id } className="btn btn-danger">Delete</button>
                       </form>
+                      <Link className="btn mx-2 float-right btn-secondary" to={`/campuses/${campus.id}/edit`}>Edit</Link>
                     </div>
                   </div>
                 </div>

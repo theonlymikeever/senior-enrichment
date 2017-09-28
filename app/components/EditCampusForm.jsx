@@ -25,21 +25,28 @@ class EditCampusForm extends Component {
     this.props.updateCampus(campus)
   }
 
-componentWillReceiveProps(nextProps){
-  if (this.props.campus !== nextProps.campus){
-    this.setState({campus: nextProps.campus, newName: nextProps.campus.name})
+  componentWillReceiveProps(nextProps){
+    if (this.props.campus !== nextProps.campus){
+      this.setState({campus: nextProps.campus, newName: nextProps.campus.name})
+    }
   }
-}
 
   render(){
     const { newName } = this.state;
     const { campus } = this.props;
     const { handleSubmit, handleChange } = this;
       return (
-      <form className="form-group" onSubmit={ handleSubmit }>
-        <input onChange={ handleChange } className="form-control" name="name" value={ newName } />
-        <button className="mt-2 btn btn-primary">Save Campus</button>
-      </form>
+        <div className="card border-primary mb-3">
+          <div className="card-header">
+            <strong>Edit campus name: </strong> { campus && campus.name }
+          </div>
+          <div className="card-body">
+            <form className="form-group" onSubmit={ handleSubmit }>
+              <input onChange={ handleChange } className="form-control" name="name" value={ newName } />
+              <button className="mt-2 btn btn-primary">Save Campus</button>
+            </form>
+          </div>
+        </div>
     )
   }
 }

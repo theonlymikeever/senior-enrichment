@@ -26,9 +26,9 @@ export default class App extends Component {
       <div>
         <Navigation />
        <div className="container">
-          <Route path="/students"  component={ StudentList } />
-          <Route path="/campuses/:id/"  component={ Campus } />
-          <Route path="/campuses/:id/edit"  component={ EditCampusForm } />
+          <Route exact path="/students"  component={ StudentList } />
+          <Route exact path="/campuses/:id"  component={ Campus } />
+          <Route exact path="/campuses/:id/edit"  component={ EditCampusForm } />
         <Route exact path="/"  component={ CampusList } />
        </div>
       </div>
