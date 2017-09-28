@@ -147,9 +147,9 @@ export function deleteCampusFromServer (campusId) {
 }
 
 export function updateCampusFromServer (campus, history) {
-  console.log('updating with: ', update);
+  console.log('updating with: ', campus);
   return function thunk (dispatch){
-    return axios.put(`/api/campuses/${campus}`)
+    return axios.put(`/api/campuses/${campus.id}`, campus)
       .then( () => {
         const action = updateCampus(campus);
         dispatch(action);

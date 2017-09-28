@@ -6,7 +6,7 @@ class EditCampusForm extends Component {
   constructor(){
     super();
     this.state = {
-      campus: { name: '' },
+      campus: {},
       newName: ''
     }
     this.handleChange = this.handleChange.bind(this);
@@ -14,28 +14,30 @@ class EditCampusForm extends Component {
   }
 
   handleChange(evt){
-    const name = evt.target.name.value;
-    this.setState({ name });
+    const newName = evt.target.value;
+    this.setState({ newName });
   }
 
   handleSubmit(evt){
-    console.log(this.props.history)
+    evt.preventDefault()
+    const { newName, campus } = this.state;
+    Object.assign(campus, { name: newName })
+    this.props.updateCampus(campus)
   }
 
 componentWillReceiveProps(nextProps){
-  if (this.props !== nextProps){
-    this.setState(nextProps)
+  if (this.props.campus !== nextProps.campus){
+    this.setState({campus: nextProps.campus, newName: nextProps.campus.name})
   }
 }
 
   render(){
-    const { name } = this.state;
+    const { newName } = this.state;
     const { campus } = this.props;
     const { handleSubmit, handleChange } = this;
-    console.log(campus)
       return (
       <form className="form-group" onSubmit={ handleSubmit }>
-        <input onChange={ handleChange } className="form-control" name="name" value={ campus ? campus.name : 'no'} />
+        <input onChange={ handleChange } className="form-control" name="name" value={ newName } />
         <button className="mt-2 btn btn-primary">Save Campus</button>
       </form>
     )
@@ -44,9 +46,10 @@ componentWillReceiveProps(nextProps){
 
 const mapStateToProps = function (state, ownProps) {
   const campusId = Number(ownProps.match.params.id);
+  const campus = state.campuses.filter(c => c.id === campusId)[0]
 
   return {
-    campus: state.campuses.filter(c => c.id === campusId),
+    campus
   };
 };
 
