@@ -8,6 +8,7 @@ import Campus from './Campus';
 import EditCampusForm from './EditCampusForm';
 import EditStudentForm from './EditStudentForm'
 import Navigation from './Navigation';
+import About from './About'
 
 export default class App extends Component {
   constructor(){
@@ -31,6 +32,7 @@ export default class App extends Component {
           <Route exact path="/campuses/:id"  component={ Campus } />
           <Route exact path="/campuses/:id/edit"  component={ EditCampusForm } />
           <Route exact path="/students/:id/edit"  component={ EditStudentForm } />
+          <Route exact path="/about"  component={ About } />
         <Route exact path="/"  component={ CampusList } />
        </div>
       </div>
