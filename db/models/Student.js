@@ -18,6 +18,10 @@ const Student = conn.define('student', {
   note: {
     type: conn.Sequelize.TEXT,
     defaultValue: faker.company.catchPhrase()
+  },
+  imageUrl: {
+    type: conn.Sequelize.STRING,
+    defaultValue: 'https://randomuser.me/api/portraits/men/1.jpg'
   }
 })
 

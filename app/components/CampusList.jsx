@@ -25,9 +25,9 @@ function CampusList(props){
                       <p className="card-text">With supporting text below as a natural lead-in to additional content.</p>
                       <Link className="btn btn-primary" to={`/campuses/${campus.id}`}>View Campus</Link>
                       <form onSubmit={ handleDelete } className="float-right">
-                       <button name="delete" value={ campus.id } className="btn btn-danger">Delete</button>
+                       <button name="delete" value={ campus.id } className="btn btn-danger" style={{ cursor: 'pointer' }}><span className="text-white oi oi-delete" name="delete-btn" /></button>
                       </form>
-                      <Link className="btn mx-2 float-right btn-secondary" to={`/campuses/${campus.id}/edit`}>Edit</Link>
+                      <Link className="btn mx-2 float-right btn-secondary" to={`/campuses/${campus.id}/edit`}><span className="text-white oi oi-pencil" name="pencil-btn" /></Link>
                     </div>
                   </div>
                 </div>

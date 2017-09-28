@@ -23,6 +23,7 @@ const DELETE_STUDENT = 'DELETE_STUDENT';
 const TRIGGER_FORM = 'TRIGGER_FORM';
 const DELETE_CAMPUS = 'DELETE_CAMPUS';
 const UPDATE_CAMPUS = 'UPDATE_CAMPUS';
+const UPDATE_STUDENT = 'UPDATE_STUDENT';
 
 
 //ACITON CREATORS------------------------------------------------------
@@ -76,6 +77,11 @@ export function deleteCampus(campusId) {
 
 export function updateCampus(campus) {
   const action = { type: UPDATE_CAMPUS, campus }
+  return action;
+}
+
+export function updateStudent(student) {
+  const action = { type: UPDATE_STUDENT, student }
   return action;
 }
 
@@ -157,6 +163,17 @@ export function updateCampusFromServer (campus, history) {
   }
 }
 
+export function updateStudentFromServer (student, history) {
+  return function thunk (dispatch){
+    return axios.put(`/api/students/${student.id}`, student)
+      .then( () => {
+        const action = updateStudent(student);
+        dispatch(action);
+        history.push(`/campuses/${student.campusId}`)
+      })
+  }
+}
+
 //REDUCERS------------------------------------------------------
 const rootReducer = function(state = initialState, action) {
   switch (action.type) {
@@ -224,6 +241,16 @@ const rootReducer = function(state = initialState, action) {
           if (campus.id === action.campus.id){
             return Object.assign({}, campus, action.campus)
           } return campus
+        })
+      }
+
+    case UPDATE_STUDENT:
+      return {
+        ...state,
+        students: state.students.map((student) => {
+          if (student.id === action.student.id){
+            return Object.assign({}, student, action.student)
+          } return student
         })
       }
 

@@ -11,7 +11,8 @@ for (var i = 0; i < 40; i++) {
   boxOFakePeople.push({
     name: faker.name.findName(),
     email: faker.internet.email(),
-    note: faker.company.catchPhrase()
+    note: faker.company.catchPhrase(),
+    imageUrl: 'https://randomuser.me/api/portraits/men/' + Math.floor(Math.random() * (99 - 1) + 1) + '.jpg'
   })
   if (i % 4 === 0) {
     boxOFakeSchools.push({
@@ -27,9 +28,9 @@ const seed = () => {
 
 //Promise array creation where 0-39 are students, 40-49 campuses
   boxOFakePeople.forEach((person) => {
-    let { name, email, note } = person;
+    let { name, email, note, imageUrl } = person;
     promiseArr.push(
-      Student.create({ name, email, note })
+      Student.create({ name, email, note, imageUrl })
     )
   })
 

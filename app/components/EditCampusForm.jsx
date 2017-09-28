@@ -25,6 +25,14 @@ class EditCampusForm extends Component {
     this.props.updateCampus(campus)
   }
 
+  componentWillMount(){
+    if (this.props.campus) {
+      this.setState({
+        campus: this.props.campus,
+        newName: this.props.campus.name })
+    }
+  }
+
   componentWillReceiveProps(nextProps){
     if (this.props.campus !== nextProps.campus){
       this.setState({campus: nextProps.campus, newName: nextProps.campus.name})

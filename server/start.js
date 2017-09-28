@@ -38,7 +38,7 @@ if (module === require.main) {
 
   const db = require('../db')
   const seed = require('../db/models/seed')
-  db.sync({ force: true }) // added force for dev
+  db.sync()
   .then(seed)
   .then(() => {
     console.log('db synced')
