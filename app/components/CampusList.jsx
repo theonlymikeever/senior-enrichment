@@ -4,9 +4,9 @@ import { connect } from 'react-redux';
 import CampusForm from './CampusForm';
 import { deleteCampusFromServer } from '../reducers'
 
-function CampusList(props){
-    const { campuses, handleDelete } = props;
-    return (
+function CampusList (props) {
+  const { campuses, handleDelete } = props;
+  return (
     <div className="col-sm-12">
       <h2>Campuses</h2>
       <div className="row">

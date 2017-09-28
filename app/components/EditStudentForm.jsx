@@ -18,9 +18,10 @@ class EditStudentForm extends Component {
 
   handleChange(evt){
     const target = evt.target;
-    const value = target.value;
+    const value = target.name === 'campusId'
+                  ? target.value * 1 //handle str > num
+                  : target.value
     const name = target.name;
-    console.log(name, value)
     this.setState({
       [name]: value
     });
@@ -39,7 +40,7 @@ class EditStudentForm extends Component {
         student: this.props.student,
         name: this.props.student.name,
         email: this.props.student.email,
-        campusId: this.props.student.campusId })
+        campusId: this.props.student.campusId * 1 })
       }
   }
 
@@ -49,7 +50,7 @@ class EditStudentForm extends Component {
         student: nextProps.student,
         name: nextProps.student.name,
         email: nextProps.student.email,
-        campusId: nextProps.student.campusId })
+        campusId: nextProps.student.campusId * 1})
     }
   }
 
@@ -86,7 +87,6 @@ class EditStudentForm extends Component {
 }
 
 const mapStateToProps = function (state, ownProps) {
-  // console.log('ownProps', ownProps)
   const studentId = Number(ownProps.match.params.id);
   const student = state.students.filter(s => {
     return s.id === studentId
